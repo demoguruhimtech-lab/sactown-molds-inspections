@@ -1,98 +1,34 @@
 import { useState } from "react";
 import { Link } from "wouter";
-import { ArrowUpRight, Menu, Phone, ShieldCheck, X } from "lucide-react";
+import { ArrowUpRight, ChevronDown, Menu, Phone, ShieldCheck, X } from "lucide-react";
 
 const PHONE = "+19166654249";
 const DISPLAY_PHONE = "+1 916-665-4249";
 
-export default function SiteShell({ children }: { children: React.ReactNode }) {
-  const [open, setOpen] = useState(false);
+const services = [
+  ["Mold Inspection", "/mold-inspection-sacramento-ca"], ["Residential Mold Inspection", "/residential-mold-inspection-sacramento-ca"], ["Black Mold Inspection", "/black-mold-inspection-sacramento-ca"], ["Mold Testing", "/mold-testing-sacramento-ca"], ["Air Quality Testing", "/air-quality-testing-sacramento-ca"], ["Indoor Air Quality", "/indoor-air-quality-sacramento-ca"], ["Moisture Inspection", "/moisture-inspection-sacramento-ca"], ["Mold Detection", "/mold-detection-sacramento-ca"], ["Mold Assessment", "/mold-assessment-sacramento-ca"], ["Water Damage Mold Inspection", "/water-damage-mold-inspection-sacramento-ca"],
+] as const;
+const areas = [
+  ["Sacramento", "/mold-inspector-sacramento-ca"], ["Midtown Sacramento", "/mold-inspector-midtown-sacramento-ca"], ["East Sacramento", "/mold-inspector-east-sacramento-ca"], ["Arden-Arcade", "/mold-inspector-arden-arcade-ca"], ["Citrus Heights", "/mold-inspector-citrus-heights-ca"], ["Elk Grove", "/mold-inspector-elk-grove-ca"], ["Roseville", "/mold-inspector-roseville-ca"], ["Folsom", "/mold-inspector-folsom-ca"], ["Fair Oaks", "/mold-inspector-fair-oaks-ca"], ["Rancho Cordova", "/mold-inspector-rancho-cordova-ca"],
+] as const;
 
-  return (
-    <div className="min-h-screen bg-[#f6f5f0] text-[#19352d]">
-      <div className="hidden bg-[#19352d] text-[#f6f5f0] md:block">
-        <div className="container flex items-center justify-between py-2 text-[11px] font-semibold uppercase tracking-[0.18em]">
-          <span>Independent indoor-environment inspections in Sacramento</span>
-          <a className="inline-flex items-center gap-2 transition hover:text-[#d9a66a]" href={`tel:${PHONE}`}>
-            <Phone size={13} /> Call the inspection desk: {DISPLAY_PHONE}
-          </a>
-        </div>
-      </div>
-
-      <header className="sticky top-0 z-40 border-b border-[#19352d]/10 bg-[#f6f5f0]/92 backdrop-blur-xl">
-        <div className="container flex h-[74px] items-center justify-between gap-6">
-          <Link href="/" className="group flex items-center gap-3" onClick={() => setOpen(false)}>
-            <span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-[#19352d] text-[#d9a66a] shadow-[0_8px_24px_rgba(25,53,45,0.18)]">
-              <ShieldCheck size={24} strokeWidth={1.7} />
-            </span>
-            <span className="leading-none">
-              <span className="block font-display text-[18px] font-bold tracking-[-0.04em] text-[#19352d]">Sactown Mold&apos;s</span>
-              <span className="mt-1 block text-[10px] font-semibold uppercase tracking-[0.23em] text-[#6d7d72]">Inspections</span>
-            </span>
-          </Link>
-
-          <nav className="hidden items-center gap-7 lg:flex" aria-label="Main navigation">
-            <a href="/#services" className="nav-link">Services</a>
-            <a href="/#process" className="nav-link">Our process</a>
-            <a href="/#areas" className="nav-link">Service areas</a>
-            <a href="/#faq" className="nav-link">FAQs</a>
-            <a href="/#contact" className="nav-link">Contact</a>
-          </nav>
-
-          <div className="hidden items-center gap-3 sm:flex">
-            <a href={`tel:${PHONE}`} className="button-secondary">
-              <Phone size={15} /> <span>Call now</span>
-            </a>
-            <a href="/#contact" className="button-primary hidden xl:inline-flex">
-              Schedule an inspection <ArrowUpRight size={16} />
-            </a>
-          </div>
-
-          <button className="flex h-11 w-11 items-center justify-center rounded-full border border-[#19352d]/15 text-[#19352d] lg:hidden" onClick={() => setOpen((value) => !value)} aria-label={open ? "Close menu" : "Open menu"}>
-            {open ? <X size={21} /> : <Menu size={21} />}
-          </button>
-        </div>
-
-        {open && (
-          <div className="border-t border-[#19352d]/10 bg-[#f6f5f0] px-5 py-5 lg:hidden">
-            <nav className="container flex flex-col gap-1" aria-label="Mobile navigation">
-              {[["/#services", "Services"], ["/#process", "Our process"], ["/#areas", "Service areas"], ["/#faq", "FAQs"], ["/#contact", "Contact"]].map(([href, label]) => (
-                <a key={href} href={href} className="rounded-xl px-3 py-3 text-base font-semibold text-[#19352d] transition hover:bg-[#e6ebe4]" onClick={() => setOpen(false)}>{label}</a>
-              ))}
-              <a href={`tel:${PHONE}`} className="button-primary mt-3 justify-center" onClick={() => setOpen(false)}><Phone size={16} /> Call {DISPLAY_PHONE}</a>
-            </nav>
-          </div>
-        )}
-      </header>
-
-      <main>{children}</main>
-
-      <footer className="border-t border-[#19352d]/10 bg-[#19352d] text-[#f6f5f0]">
-        <div className="container grid gap-12 py-14 md:grid-cols-[1.1fr_.7fr_.7fr] md:py-20">
-          <div>
-            <div className="flex items-center gap-3">
-              <span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-[#d9a66a] text-[#19352d]"><ShieldCheck size={24} strokeWidth={1.7} /></span>
-              <div><div className="font-display text-xl font-bold tracking-[-0.04em]">Sactown Mold&apos;s</div><div className="text-[10px] font-semibold uppercase tracking-[0.22em] text-[#adc0b2]">Inspections</div></div>
-            </div>
-            <p className="mt-6 max-w-sm text-sm leading-7 text-[#c7d4ca]">Clear, evidence-based mold and indoor-environment inspections for Sacramento homes, businesses, and property decisions.</p>
-            <a href={`tel:${PHONE}`} className="mt-6 inline-flex items-center gap-2 text-sm font-bold text-[#d9a66a] transition hover:text-white"><Phone size={15} /> {DISPLAY_PHONE}</a>
-          </div>
-          <div>
-            <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-[#d9a66a]">Explore</h2>
-            <div className="mt-5 flex flex-col gap-3 text-sm text-[#c7d4ca]"><a href="/#services" className="footer-link">Inspection services</a><a href="/#process" className="footer-link">How it works</a><a href="/#areas" className="footer-link">Service areas</a><a href="/#faq" className="footer-link">FAQs</a></div>
-          </div>
-          <div>
-            <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-[#d9a66a]">Visit</h2>
-            <p className="mt-5 text-sm leading-7 text-[#c7d4ca]">2848 Arden Wy<br />Sacramento, CA 95825</p>
-            <a href="https://maps.app.goo.gl/zbcc3TAXiGT8zPJp6" target="_blank" rel="noreferrer" className="mt-4 inline-flex items-center gap-2 text-sm font-bold text-white">Open in Google Maps <ArrowUpRight size={15} /></a>
-          </div>
-        </div>
-        <div className="border-t border-white/10"><div className="container flex flex-col gap-2 py-5 text-xs text-[#9fb2a3] sm:flex-row sm:items-center sm:justify-between"><span>© {new Date().getFullYear()} Sactown Mold&apos;s Inspections. All rights reserved.</span><span>Serving Sacramento and nearby communities.</span></div></div>
-      </footer>
-
-      <a href={`tel:${PHONE}`} className="fixed bottom-4 left-4 right-4 z-50 flex items-center justify-center gap-2 rounded-2xl bg-[#d9683e] px-5 py-4 text-sm font-bold text-white shadow-[0_15px_35px_rgba(217,104,62,0.35)] transition hover:bg-[#c85e36] sm:hidden"><Phone size={17} /> Call now · {DISPLAY_PHONE}</a>
-    </div>
-  );
+function Dropdown({ label, items }: { label: string; items: readonly (readonly [string, string])[] }) {
+  return <div className="group relative"><button className="nav-link inline-flex items-center gap-1.5 py-5" aria-haspopup="true">{label}<ChevronDown size={14} className="transition group-hover:rotate-180" /></button><div className="invisible absolute left-1/2 top-full z-50 grid w-[290px] -translate-x-1/2 translate-y-2 grid-cols-1 rounded-2xl border border-[#19352d]/10 bg-[#f6f5f0] p-2 opacity-0 shadow-[0_20px_45px_rgba(25,53,45,.16)] transition-all duration-200 group-hover:visible group-hover:translate-y-0 group-hover:opacity-100">{items.map(([name, href]) => <Link key={href} href={href} className="rounded-xl px-3 py-2.5 text-xs font-bold text-[#365344] transition hover:bg-[#e6ebe4] hover:text-[#d9683e]">{name}</Link>)}</div></div>;
 }
 
-export { DISPLAY_PHONE, PHONE };
+export default function SiteShell({ children }: { children: React.ReactNode }) {
+  const [open, setOpen] = useState(false);
+  return <div className="min-h-screen bg-[#f6f5f0] text-[#19352d]">
+    <div className="hidden bg-[#19352d] text-[#f6f5f0] md:block"><div className="container flex items-center justify-between py-2 text-[11px] font-semibold uppercase tracking-[0.18em]"><span>Independent indoor-environment inspections in Sacramento</span><a className="inline-flex items-center gap-2 transition hover:text-[#d9a66a]" href={`tel:${PHONE}`}><Phone size={13} /> Call the inspection desk: {DISPLAY_PHONE}</a></div></div>
+    <header className="sticky top-0 z-40 border-b border-[#19352d]/10 bg-[#f6f5f0]/92 backdrop-blur-xl"><div className="container flex h-[74px] items-center justify-between gap-6"><Link href="/" className="group flex items-center gap-3" onClick={() => setOpen(false)}><span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-[#19352d] text-[#d9a66a] shadow-[0_8px_24px_rgba(25,53,45,0.18)]"><ShieldCheck size={24} strokeWidth={1.7} /></span><span className="leading-none"><span className="block font-display text-[18px] font-bold tracking-[-0.04em] text-[#19352d]">Sactown Mold&apos;s</span><span className="mt-1 block text-[10px] font-semibold uppercase tracking-[0.23em] text-[#6d7d72]">Inspections</span></span></Link>
+      <nav className="hidden items-center gap-6 lg:flex" aria-label="Main navigation"><Dropdown label="Services" items={services} /><Dropdown label="Service areas" items={areas} /><Link href="/about" className="nav-link">About</Link><Link href="/contact" className="nav-link">Contact</Link><a href="/#faq" className="nav-link">FAQs</a></nav>
+      <div className="hidden items-center gap-3 sm:flex"><a href={`tel:${PHONE}`} className="button-secondary"><Phone size={15} /> <span>Call now</span></a><a href="/contact" className="button-primary hidden xl:inline-flex">Schedule an inspection <ArrowUpRight size={16} /></a></div>
+      <button className="flex h-11 w-11 items-center justify-center rounded-full border border-[#19352d]/15 text-[#19352d] lg:hidden" onClick={() => setOpen((value) => !value)} aria-label={open ? "Close menu" : "Open menu"}>{open ? <X size={21} /> : <Menu size={21} />}</button></div>
+      {open && <div className="border-t border-[#19352d]/10 bg-[#f6f5f0] px-5 py-5 lg:hidden"><nav className="container flex flex-col gap-1" aria-label="Mobile navigation"><Link href="/about" className="rounded-xl px-3 py-3 text-base font-semibold" onClick={() => setOpen(false)}>About</Link><Link href="/contact" className="rounded-xl px-3 py-3 text-base font-semibold" onClick={() => setOpen(false)}>Contact</Link><details className="rounded-xl px-3 py-3"><summary className="flex cursor-pointer list-none items-center justify-between text-base font-semibold">Services <ChevronDown size={17} /></summary><div className="mt-2 grid gap-1 border-l border-[#19352d]/15 pl-3">{services.map(([name, href]) => <Link key={href} href={href} onClick={() => setOpen(false)} className="py-1.5 text-sm text-[#627269]">{name}</Link>)}</div></details><details className="rounded-xl px-3 py-3"><summary className="flex cursor-pointer list-none items-center justify-between text-base font-semibold">Service areas <ChevronDown size={17} /></summary><div className="mt-2 grid gap-1 border-l border-[#19352d]/15 pl-3">{areas.map(([name, href]) => <Link key={href} href={href} onClick={() => setOpen(false)} className="py-1.5 text-sm text-[#627269]">{name}</Link>)}</div></details><a href={`tel:${PHONE}`} className="button-primary mt-3 justify-center" onClick={() => setOpen(false)}><Phone size={16} /> Call {DISPLAY_PHONE}</a></nav></div>}
+    </header>
+    <main>{children}</main>
+    <footer className="border-t border-[#19352d]/10 bg-[#19352d] text-[#f6f5f0]"><div className="container grid gap-12 py-14 md:grid-cols-[1.05fr_1fr_1fr_1fr] md:py-20"><div><div className="flex items-center gap-3"><span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-[#d9a66a] text-[#19352d]"><ShieldCheck size={24} strokeWidth={1.7} /></span><div><div className="font-display text-xl font-bold tracking-[-0.04em]">Sactown Mold&apos;s</div><div className="text-[10px] font-semibold uppercase tracking-[0.22em] text-[#adc0b2]">Inspections</div></div></div><p className="mt-6 max-w-sm text-sm leading-7 text-[#c7d4ca]">Clear, evidence-based mold and indoor-environment inspections for Sacramento homes, businesses, and property decisions.</p><a href={`tel:${PHONE}`} className="mt-6 inline-flex items-center gap-2 text-sm font-bold text-[#d9a66a]"><Phone size={15} /> {DISPLAY_PHONE}</a><div className="mt-5 flex gap-4 text-sm"><Link href="/about" className="footer-link">About</Link><Link href="/contact" className="footer-link">Contact</Link></div></div><div><h2 className="text-xs font-bold uppercase tracking-[0.2em] text-[#d9a66a]">Services</h2><div className="mt-5 grid gap-2 text-sm text-[#c7d4ca]">{services.map(([name, href]) => <Link key={href} href={href} className="footer-link">{name}</Link>)}</div></div><div><h2 className="text-xs font-bold uppercase tracking-[0.2em] text-[#d9a66a]">Service areas</h2><div className="mt-5 grid gap-2 text-sm text-[#c7d4ca]">{areas.map(([name, href]) => <Link key={href} href={href} className="footer-link">{name}</Link>)}</div></div><div><h2 className="text-xs font-bold uppercase tracking-[0.2em] text-[#d9a66a]">Visit</h2><p className="mt-5 text-sm leading-7 text-[#c7d4ca]">2848 Arden Wy<br />Sacramento, CA 95825</p><a href="https://maps.app.goo.gl/zbcc3TAXiGT8zPJp6" target="_blank" rel="noreferrer" className="mt-4 inline-flex items-center gap-2 text-sm font-bold text-white">Open in Google Maps <ArrowUpRight size={15} /></a></div></div><div className="border-t border-white/10"><div className="container flex flex-col gap-2 py-5 text-xs text-[#9fb2a3] sm:flex-row sm:items-center sm:justify-between"><span>© {new Date().getFullYear()} Sactown Mold&apos;s Inspections. All rights reserved.</span><span>Serving Sacramento and nearby communities.</span></div></div></footer>
+    <a href={`tel:${PHONE}`} className="fixed bottom-4 left-4 right-4 z-50 flex items-center justify-center gap-2 rounded-2xl bg-[#d9683e] px-5 py-4 text-sm font-bold text-white shadow-[0_15px_35px_rgba(217,104,62,0.35)] sm:hidden"><Phone size={17} /> Call now · {DISPLAY_PHONE}</a>
+  </div>;
+}
+export { DISPLAY_PHONE, PHONE, services, areas };
