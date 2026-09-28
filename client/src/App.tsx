@@ -1,6 +1,7 @@
+import { useEffect } from "react";
 import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import { Route, Switch } from "wouter";
+import { Route, Switch, useLocation } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
 import SiteShell from "./components/SiteShell";
 import AboutPage from "./pages/AboutPage";
@@ -36,8 +37,17 @@ export const areaRoutes = [
   ["/mold-inspector-rancho-cordova-ca", "rancho-cordova"],
 ] as const;
 
+function ScrollToTop() {
+  const [location] = useLocation();
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+  }, [location]);
+  return null;
+}
+
 function Router() {
   return <SiteShell>
+    <ScrollToTop />
     <Switch>
       <Route path="/" component={Home} />
       <Route path="/about" component={AboutPage} />
